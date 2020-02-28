@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/* Tareas */
+
+Auth::routes();
+
+Route::resource('/form', 'TareasController');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/form', function () {
+    return view('form_tareas');
+});

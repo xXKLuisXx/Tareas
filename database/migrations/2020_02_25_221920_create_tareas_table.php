@@ -16,12 +16,12 @@ class CreateTareasTable extends Migration
         Schema::create('tareas', function (Blueprint $table) {
             $table->bigIncrements('id'); //
             $table->text('nombre_tarea'); //
-            $table->text('descripcion'); //
+            $table->text('descripcion')->nullable(); //
             $table->unsignedInteger('categoria_id'); //
             $table->unsignedSmallInteger('prioridad'); //
             $table->text('estatus');
-            $table->boolean('terminado');
-            $table->date('fecha_terminado');
+            $table->boolean('terminado')->nullable();
+            $table->date('fecha_terminado')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });

@@ -52,7 +52,7 @@
               <div class="form-group col-md-4">
                 <label for="estatus">Estatus</label>
                   <select id="estatus" class="form-control" name="estatus" required>
-                    <option selected value="Inicidao"> Iniciado </option>
+                    <option selected value="Iniciado"> Iniciado </option>
                     <option value="En proceso"> En proceso </option>
                     <option value="Terminado"> Terminado </option>
                   </select>
@@ -72,7 +72,7 @@
 
             <div class="form-group">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="terminado" name="terminado" required>
+                <input class="form-check-input" type="checkbox" id="terminado" name="terminado">
                 <label class="form-check-label" for="terminado">
                   Terminado
                 </label>

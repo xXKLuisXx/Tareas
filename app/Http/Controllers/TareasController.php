@@ -12,12 +12,18 @@ class TareasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $tareas = Tarea::all();
-        dd($tareas);
+        //dd($tareas);
 
-        return view('home', \compact('tareas')); //pasar datos de la vista, la variable no tiene el signo de $
+        return view('form_tareas', \compact('tareas')); //pasar datos de la vista, la variable no tiene el signo de $
 
         //
     }
@@ -41,12 +47,22 @@ class TareasController extends Controller
     public function store(Request $request)
     {
         $tarea = new Tarea();
+        $request->validate([
+            'nombre_tarea' =>'required',
+            'categoria_id' =>'required',
+            'prioridad' =>'required',
+            'estatus' =>'required',
+            'fecha_terminado' =>'required | date',
+            'user_id' => 'required'
 
+
+        ]);
         $tarea->nombre_tarea = $request->nombre_tarea;
         $tarea->descripcion = $request->descripcion;
         $tarea->categoria_id = $request->categoria_id;
         $tarea->prioridad = $request->prioridad;
         $tarea->estatus = $request->estatus;
+        $tarea->user_id = $request->user_id;
         $tarea->fecha_terminado = $request->fecha_terminado;
 
         if($request->terminado){

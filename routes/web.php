@@ -19,6 +19,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('/form', 'TareasController');
+
+Route::resource('tareas', 'TareasController')->middleware('auth');
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');

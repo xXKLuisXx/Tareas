@@ -35,7 +35,7 @@
                 <td>{{ $tarea->user->name }}</td>
                 <td>
                   <div>
-                    <a class="btn btn-primary" href="{{ action('TareasController@show', $tarea->id) }}" role="button">Ver</a>
+                    <a class="btn btn-primary" href="{{ action('TareasController@show', $tarea) }}" role="button">Ver</a>
                   </div> </td>
               </tr>
               @endforeach
@@ -44,7 +44,7 @@
         </div>
         <div class="card-footer">
           <div>
-            <a class="btn btn-success float-right" href="{{ action('TareasController@create', $tarea->id) }}" role="button">Agregar</a>
+            <a class="btn btn-success float-right" href="{{ action('TareasController@create', $tarea) }}" role="button">Agregar</a>
           </div>
         </div>
       </div>

@@ -58,8 +58,8 @@ class TareasController extends Controller
         $request->validate([
             'nombre_tarea' =>'required',
             'categoria_id' =>'required',
-            'prioridad' =>'required',
-            'estatus' =>'required',
+            'prioridad_id' =>'required',
+            'estado_id' =>'required',
             'fecha_terminado' =>'required | date',
             'user_id' => 'required'
         ]);
@@ -70,13 +70,8 @@ class TareasController extends Controller
         $tarea->estado_id = $request->estado_id;
         $tarea->user_id = $request->user_id;
         $tarea->fecha_terminado = $request->fecha_terminado;
-
-        if($request->terminado){
-            $tarea->terminado = 1;
-        }
-        else{
-            $tarea->terminado = 0;
-        }
+        $tarea->terminado = $request->terminado;
+        
         $tarea->save();
         return redirect()->action('TareasController@index');
         //
@@ -104,7 +99,12 @@ class TareasController extends Controller
     public function edit(Tarea $tarea)
     {
         //
-        return view('form_tareas', \compact('tarea', 'categorias', 'estados', 'prioridades'));
+        $users = User::pluck('name', 'id');
+        $categorias = Categoria::pluck('nombre', 'id');
+        $estados = Estado::pluck('nombre', 'id');
+        $prioridades = Prioridad::pluck('nombre', 'id');
+
+        return view('form_tareas', \compact('tarea', 'users','categorias', 'estados', 'prioridades'));
     }
 
     /**
@@ -117,6 +117,26 @@ class TareasController extends Controller
     public function update(Request $request, Tarea $tarea)
     {
         //
+        $request->validate([
+            'nombre_tarea' =>'required',
+            'categoria_id' =>'required',
+            'prioridad_id' =>'required',
+            'estado_id' =>'required',
+            'fecha_terminado' =>'required | date',
+            'user_id' => 'required'
+        ]);
+        $tarea->nombre_tarea = $request->nombre_tarea;
+        $tarea->descripcion = $request->descripcion;
+        $tarea->categoria_id = $request->categoria_id;
+        $tarea->prioridad_id = $request->prioridad_id;
+        $tarea->estado_id = $request->estado_id;
+        $tarea->user_id = $request->user_id;
+        $tarea->fecha_terminado = $request->fecha_terminado;
+        $tarea->terminado = $request->terminado;
+        
+        $tarea->save();
+        return redirect()->action('TareasController@index');
+        
     }
 
     /**
@@ -128,5 +148,7 @@ class TareasController extends Controller
     public function destroy(Tarea $tarea)
     {
         //
+        $tarea->delete();
+        return redirect()->action('TareasController@index');
     }
 }

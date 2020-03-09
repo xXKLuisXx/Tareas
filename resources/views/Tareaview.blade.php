@@ -57,11 +57,15 @@
                 <li class="list-group-item">Fecha terminado: {{$tarea->fecha_terminado}}</li>  
                 <li class="list-group-item">Última vez modificado: {{$tarea->updated_at}}</li>
               </ul>
-
-              <a href="#" class="btn btn-primary">Editar</a>
+              <!--  
+              <a href=" " class="btn btn-primary">Editar</a>
+              -->
+              <a class="btn btn-primary" href="{{ action('TareasController@edit', $tarea) }}" role="button">Editar</a>
             </div>
             <div class="card-footer text-muted">
-              Eliminar
+              {{ Form::open(['action' => ['TareasController@destroy', $tarea], 'method' => 'delete'])}}
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+              {{ Form::close()}}
             </div>
           </div>
 

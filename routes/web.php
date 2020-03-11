@@ -22,6 +22,6 @@ Auth::routes();
 
 Route::resource('tareas', 'TareasController')->middleware('auth');
 
-
+Route::resource('equipos', 'EquipoController');
 
 Route::get('/home', 'HomeController@index')->name('home');

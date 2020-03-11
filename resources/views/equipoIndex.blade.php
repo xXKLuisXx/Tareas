@@ -18,24 +18,25 @@
             <thead>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Entrega</th>
-                <th scope="col">Usuario</th>
-                <th scope="col">Opciones</th>
+                <th scope="col">Equipo</th>
+                <th scope="col">Integrantes</th>
+                <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($tareas as $tarea)
+              @foreach ($equipos as $equipo)
               <tr>
-                <th scope="row">{{ $tarea->id }}</th>
-                <td>{{ $tarea->nombre_tarea }}</td>
-                <td>{{ $tarea->descripcion }}</td>
-                <td>{{ $tarea->fecha_terminado->format('d/m/Y') }}</td>
-                <td>{{ $tarea->user->name }}</td>
+                <th scope="row">{{ $equipo->id }}</th>
+                
+                <th scope="row">{{ $equipo->nombre_equipo }}</th>
+                @foreach ($equipo->users as $user)
+                <th scope="row">{{ $user->name }}</th>
+                @endforeach
+                
+
                 <td>
                   <div>
-                    <a class="btn btn-primary" href="{{ action('TareasController@show', $tarea) }}" role="button">Ver</a>
+                    <a class="btn btn-warning" href="{{ action('EquipoController@edit', $equipo) }}" role="button">Editar</a>
                   </div> </td>
               </tr>
               @endforeach
@@ -44,7 +45,7 @@
         </div>
         <div class="card-footer">
           <div>
-            <a class="btn btn-success float-right" href="{{ action('TareasController@create', $tarea) }}" role="button">Agregar</a>
+            <a class="btn btn-success float-right" href="{{ action('TareasController@create', $equipo) }}" role="button">Agregar</a>
           </div>
         </div>
       </div>

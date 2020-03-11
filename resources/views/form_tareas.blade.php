@@ -15,54 +15,57 @@
           @endif
 
           @if (isset($tarea))
+          {{ Form::open(['action' => ['TareasController@update', $tarea], 'method' => 'put'])}}
+
           @else
           {{ Form::open(['action' => 'TareasController@store'])}}
           @endif
           <div class="form-row">
             <div class="form-group col-md-6">
               {{ Form::label('nombre_tarea', 'Nombre')}}
-              {{ Form::text('nombre_tarea', null, ['class' => ($errors->has('nombre_tarea')) ? 'form-control is-invalid' : 'form-control'])}}
+              {{ Form::text('nombre_tarea', isset($tarea->nombre_tarea) ? $tarea->nombre_tarea : null , ['class' => ($errors->has('nombre_tarea')) ? 'form-control is-invalid' : 'form-control'])}}
             </div>
             <div class="form-group col-md-6">
               {{ Form::label('categoria_id', 'Categoría')}}
-              {{ Form::select('categoria_id', $categorias ,
-                isset($tarea) ? $tarea->categoria_id : '1', ['class' => 'form-control' ] )}}
+              {{ Form::select('categoria_id', $categorias , isset($tarea->categoria_id) ? $tarea->categoria->nombre : '1', ['class' => 'form-control' ] )}}
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-4">
               {{ Form::label('user_id', 'Usuario')}}
               {{ Form::select('user_id', $users,
-                isset($tarea) ? $tarea->user_id : '1', ['class' => 'form-control'] )}}
+                isset($tarea->user_id) ? $tarea->user->name : '1', ['class' => 'form-control'] )}}
             </div>
             <div class="form-group col-md-4">
               {{ Form::label('prioridad_id', 'Prioridad')}}
-              {{ Form::select('prioridad_id', $prioridades,
-                isset($tarea) ? $tarea->prioridad : '1', ['class' => 'form-control'] )}}
+              {{ Form::select('prioridad_id', $prioridades, isset($tarea->prioridad_id) ? $tarea->prioridad->nombre : '1', ['class' => 'form-control'] )}}
             </div>
             <div class="form-group col-md-4">
               {{ Form::label('estado_id', 'Estado')}}
-              {{ Form::select('estado_id', $estados,
-                isset($tarea) ? $tarea->estatus : '1', ['class' => 'form-control'] )}}
+              {{ Form::select('estado_id', $estados, isset($tarea->estado_id) ? $tarea->estado->nombre : '1', ['class' => 'form-control'] )}}
             </div>
           </div>
           <div class="form-group">
             {{ Form::label('fecha_terminado', 'Fecha de termino')}}
-            {{ Form::date('fecha_terminado', null, ['class' => 'form-control'])}}
+            {{ Form::date('fecha_terminado', isset($tarea->fecha_terminado) ? $tarea->fecha_terminado : null, ['class' => 'form-control'])}}
           </div>
 
           <div class="form-group">
             {{ Form::label('descripcion', 'Descripción')}}
-            {{ Form::text('descripcion', null, ['class' => ($errors->has('descripcion')) ? 'form-control is-invalid' : 'form-control'])}}
+            {{ Form::text('descripcion', isset($tarea->descripcion) ? $tarea->descripcion : null, ['class' => ($errors->has('descripcion')) ? 'form-control is-invalid' : 'form-control'])}}
           </div>
 
           <div class="form-group">
             <div class="form-check">
               {{ Form::label('terminado', 'Terminado')}}
-              {{ Form::checkbox('terminado', 'value', isset($tarea) ? $tarea->terminado : false )}}
+              {{ Form::checkbox('terminado', 'value', isset($tarea->terminado) ? $tarea->terminado : false )}}
             </div>
           </div>
+          @if (isset($tarea))
+          <button type="submit" class="btn btn-primary float-right">Modificar</button>
+          @else
           <button type="submit" class="btn btn-primary float-right">Agregar</button>
+          @endif
           {{ Form::close()}}
           
         </div>

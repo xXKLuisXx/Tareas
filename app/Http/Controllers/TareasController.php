@@ -63,6 +63,10 @@ class TareasController extends Controller
             'fecha_terminado' =>'required | date',
             'user_id' => 'required'
         ]);
+
+        $request->merge(['user_id' => \Auth::id()]);
+        Tarea::create($request->all);
+        /*
         $tarea->nombre_tarea = $request->nombre_tarea;
         $tarea->descripcion = $request->descripcion;
         $tarea->categoria_id = $request->categoria_id;
@@ -73,6 +77,7 @@ class TareasController extends Controller
         $tarea->terminado = $request->terminado;
         
         $tarea->save();
+        */
         return redirect()->action('TareasController@index');
         //
     }
@@ -125,6 +130,9 @@ class TareasController extends Controller
             'fecha_terminado' =>'required | date',
             'user_id' => 'required'
         ]);
+
+        Tarea::where('id', $tarea->id)->update($request->except('_token', '_method'));
+        /*
         $tarea->nombre_tarea = $request->nombre_tarea;
         $tarea->descripcion = $request->descripcion;
         $tarea->categoria_id = $request->categoria_id;
@@ -135,6 +143,7 @@ class TareasController extends Controller
         $tarea->terminado = $request->terminado;
         
         $tarea->save();
+        */
         return redirect()->action('TareasController@index');
         
     }
